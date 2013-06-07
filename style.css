@@ -1,0 +1,10 @@
+body {
+  background-color: black;
+  font-family: "Courier New", Monospace;
+  color: lime;
+}
+.chardelay {
+  margin: 2em;
+  padding: 2em;
+  line-height: 1.5em;
+}
