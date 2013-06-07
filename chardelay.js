@@ -51,8 +51,8 @@ function init() {
    */
   /* Split string into character array */
   function splitStr(s){ 
-  s.split('');
-  return s;
+    s.split('');
+    return s;
   }
   /* Write text inside <p> tag */
   function writeIt(ele, object, index, dir) {
@@ -66,7 +66,7 @@ function init() {
   /* Convert obj to character array if string */
   newObj = (Array.isArray(obj)) ? obj : splitStr(obj);
   /* Attach class to element */
-   elmt.className += 'chardelay';
+  elmt.className += 'chardelay';
   /* Attach <p> tag to document */
   document.body.appendChild(elmt);
   /* Loop through Array */
