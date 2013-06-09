@@ -2,7 +2,7 @@
  *     SETTINGS 
  */
 /*Set String */
-var str = "You are a slave. Like everyone else, you were born into bondage, born into a prison that you cannot smell or taste or touch. A prison...for your mind....Unfortunatly, no one can be..._told_ what the Matrix is...you have to see it for yourself.";
+var str = 'You are a slave. Like everyone else, you were born into bondage, born into a prison that you cannot smell or taste or touch. A prison...for your mind....Unfortunatly, no one can be..._told_ what the Matrix is...you have to see it for yourself.';
 /* Set Array */
 var arr = [1, 2, 3, 4, 5, 6, 7, 8];
 /* 
@@ -15,7 +15,7 @@ var obj = str;
  *  - 'h'= horizontal, 'v' = vertical
  */
 var direction = 'h';
-/*  
+/*
  * Set delay for outputing characters
  *   - 0 is ignored and will use default
  */
@@ -40,7 +40,7 @@ function init() {
    *   - If delay is number and > 0 use it
    *   - Defaults: 1s for vert; 150ms for horz
    */
-  var dly = (typeof delay === 'number' && delay <= 0) ? ((direction === 'v') ?  1000 : 150) : delay;
+  var dly = (typeof delay === 'number' && delay > 0) ? delay : ((direction === 'v') ?  1000 : 150);
   /* If obj is a string then convert to character array */
   var newObj = [];
   /* Create element */
@@ -54,7 +54,7 @@ function init() {
     s.split('');
     return s;
   }
-  /* Write text inside <p> tag */
+  /* Write text inside element */
   function writeIt(ele, object, index, dir) {
     /* If vertical then add a <br /> */
     ele.innerHTML += object[index];
@@ -67,11 +67,11 @@ function init() {
   newObj = (Array.isArray(obj)) ? obj : splitStr(obj);
   /* Attach class to element */
   elmt.className += 'chardelay';
-  /* Attach <p> tag to document */
+  /* Attach element to document */
   document.body.appendChild(elmt);
   /* Loop through Array */
   for (var i = 0; i < newObj.length; i++) {
-  /* Anonymous IIFE passing vars i, newObj and time */
+  /* Anonymous IIFE passing vars elmt, newObj, i, direction */
     (function(e, o, x, d){
       /* Invoke delay */
       setTimeout(function(){
