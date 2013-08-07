@@ -18,10 +18,6 @@ Since this is stand-alone there are no dependencies, although it is ready to acc
 <script src="js/chardelay.js"></script>
 ```
 
-- _Required heroku addons, packages, or chef recipes._
-- _Required environment variables or credentials not included in git._
-- _Monitoring services and logging._
-
 ### _How to deploy_
 
 `Chardelay( content [required], options )`
