@@ -1,8 +1,69 @@
-Delay each item in an array to be written to the screen.
+# Chardelay.js
 
-Options that you are able to edit:
-   * var `str`
-   * var `arr`
-   * var `obj` can be either `str` or `arr`.
-   * var `direction` can be 'h' or 'v'.
-   * var `delay` can be changed to any number greater than zero. The default delay is in the `init()` function and set to 1s for vertical and 150ms for horizontal.
+A stand-alone library for placing content on the page with a delay similar to a typing effect.
+
+Compatible with most major browsers, including IE8+.
+
+## Project Setup
+
+Download and unzip or clone into your project's js folder.
+
+Since this is stand-alone there are no dependencies, although it is ready to accept a jQuery element object.
+
+## Deploying
+
+### Add the javascript file to your page:
+
+```html
+<script src="js/chardelay.js"></script>
+```
+
+- _Required heroku addons, packages, or chef recipes._
+- _Required environment variables or credentials not included in git._
+- _Monitoring services and logging._
+
+### _How to deploy_
+
+`Chardelay( content [required], options )`
+
+#### _Arguments:_
+
+1. `content`: String or Array of that which is to be outputted. Required.
+2. Options:
+1. `layout`: String of output display - `"h"` = horizontal, `"v"` = vertical. Default: `"h"`.
+2. `delay`: Number of milliseconds between placing output items. Default: `150` if `"h", `400` if `"v"`.
+3. `inEl`: String of type of HTML element to create for our output to be placed inside. Accepted types are `"p"`, "span"`, `"div"`. Default: `span`. 
+4. `css`: String of CSS class for output to be styled as. Default: `chardelay`.
+5. `parentEl`: String of parent element for `inEl`. Accepts elements by Id or Class (Note: No dot (`.`) before class). Also accepts a jQuery element object as well. Default: `document.body`.
+
+
+#### Create a new instance
+
+_Able to initialize in a few ways_:
+- ```js
+var myChardelay = Chardelay( contentString );
+``` -- Uses `defaults` for `options`.
+- ```js
+var myChardelay = Chardelay( contentString, "h", 300, "p", "coolText", "container" );
+```
+- ```js
+var myChardelay = Chardelay( contentString, {
+                      "layout"  : "v",
+                      "delay"   : 225,
+                      "inEl"    : "div",
+                      "css"     : "shadow",
+                      "parentEl": $("#container")
+                      /* OR if not using jQuery:
+                       * "parentEl": document.getElementById("container")
+                       * "parentEl": document.getElementsByClassName("myClass")
+                  });
+```
+
+## Troubleshooting
+
+> If using `document.getElementsByClassName` and there are more than 1 elements in the returned NodeList
+>only the first element will be used.
+
+## License
+
+Copyright (c) 2013 @seantunwin Licensed under the MIT license.

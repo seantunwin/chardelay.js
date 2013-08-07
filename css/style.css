@@ -1,0 +1,41 @@
+
+html, body {
+	font-size: 18px;
+	margin: 0;
+	padding: 0;
+}
+p, span {
+	margin-left: .5em;
+}
+.chardelay {
+	display: inline-block;
+	margin: 2em;
+	padding: 2em;
+	line-height: 1.5em;
+	font-family: sans-serif;
+	color: red;
+}
+.terminal {
+	font-family: monospace;
+	font-size: 1.15em;
+	color: lime;
+
+}
+.hldr {
+	background-color: #000;
+	border-radius: 5px;
+	min-width: 280px;
+	min-height: 200px;
+	width: 65%;
+	margin: 2%;
+	padding: 1.2em;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+@media screen and (max-width: 600px) {
+	.terminal {
+		font-size: 1em;
+	}
+}
