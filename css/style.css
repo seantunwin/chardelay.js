@@ -4,23 +4,19 @@ html, body {
 	margin: 0;
 	padding: 0;
 }
+
 p, span {
 	margin-left: .5em;
 }
+
 .chardelay {
 	display: inline-block;
-	margin: 2em;
-	padding: 2em;
 	line-height: 1.5em;
-	font-family: sans-serif;
-	color: red;
-}
-.terminal {
 	font-family: monospace;
-	font-size: 1.15em;
+	letter-spacing: .065em;
 	color: lime;
-
 }
+
 .hldr {
 	background-color: #000;
 	border-radius: 5px;
@@ -35,7 +31,7 @@ p, span {
 }
 
 @media screen and (max-width: 600px) {
-	.terminal {
+	.chardelay {
 		font-size: 1em;
 	}
 }

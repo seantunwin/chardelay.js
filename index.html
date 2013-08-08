@@ -7,11 +7,10 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-
 </head>
 <body>
 	<div id="container" class="hldr"></div>
-
+  <!-- The span below is for you to play Chardelay around with placement around other elements -->
 	<span>Lorem ipsum</span>
 
   <script src="js/chardelay.js"></script>
@@ -19,27 +18,27 @@
   	function start(){
   			var str = 'You are a slave. Like everyone else, you were born into bondage, born into a prison that you cannot smell or taste or touch. A prison...for your mind...Unfortunatly, no one can be..._told_ what the Matrix is...you have to see it for yourself.';
 
-  			var s1 = ["Alvin", 1, "Simon", 2, "Theodore", 3];
+  		var arr = ["Alvin", 1, "Simon", 2, "Theodore", 3];
 			var o1 = {"Alvin": 1, "Simon": 2, "Theodore": 3}; // This will fail because wrong type: object
-			var s2 = "I am a happy string.";
 			//var myCD = Chardelay(s1,"h", 500);
 			//var myCD = new Chardelay();
-			//var myCD = Chardelay(s2,"v",215,"div", 4, 7, "u");
+      /* The below has wrong argument types for options to show that it won't fail, but use defaults will be used instead */
+			//var myCD = Chardelay(s2,"v",215,"div", 4, 7, "u"); 
 			//var myCD = Chardelay(str);
-			//var myCD = Chardelay(str,{"parentEl": document.getElementById("test")});
+			//var myCD = Chardelay(str,{"parentEl": document.getElementById("container")});
 			///*
 			var myCD1 = Chardelay(str,{
 			                "layout": "h",
-			                "delay": 45,
+			                "delay": 65,
 			                "inElement": "span",
-			                "css": "terminal",
-			                "parentEl": "container"
+			                "css": "chardelay",
+			                "parentEl": "hldr"
 			               });
 			
 			//*/
   	}
     /*
-     * For older browsers to ensure js is loaded 
+     * For older browsers to ensure external js is loaded
      * Snippet copied from :
      * http://www.javascriptkit.com/dhtmltutors/domready.shtml
      */

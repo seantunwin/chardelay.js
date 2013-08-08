@@ -12,15 +12,15 @@
 *       @layout: String (h OR v)
 *       @delay: Number (> 0)
 *       @inEl: String (Elements accepted: p OR span OR div)
-*        @css: String (CSS class name)
-*        @parentEl: Object (HTML element)
+*       @css: String (CSS class name)
+*       @parentEl: Object (HTML element)
 *
 *************** 
 * Copyright 2013 Sean T. Unwin
 * Released under the MIT license.
 * http://en.wikipedia.org/wiki/MIT_License
 */
-;(function (window) {
+;(function () {
 	"use strict";
 
     function Chardelay(c, options) {
@@ -47,10 +47,7 @@
                     throw new TypeError("content must be a String or Array");
                   }
                 } catch(e) {
-                    //var ne = new TypeError(e)
-                    
-                  //var err = "Chardelay: contentTypeError(" + e + ") - must be a String or Array";
-                  window.console.debug(e.name + ": " + e.message);
+                  window.console.log(e.name + ": " + e.message);
                   content = false;
                   return false;
                 }
@@ -63,7 +60,7 @@
                     content = validate(c);
                 }
             } catch(e) {
-                window.console.debug(e.name + ": " + e.message);
+                window.console.log(e.name + ": " + e.message);
                 content = false;
                 return false;
             }
@@ -99,9 +96,6 @@
                     isSet = false;
                     return false;
                 }
-                argsLen = (!Array.isArray(options)) ? args.length : Object.keys(options).length;
-
-
             }
 
             function validate() {
@@ -200,22 +194,24 @@
             return s;
           }
 
-          function writeIt (ele, object, index, dir) {
-            ele.innerHTML += object[index];
+          function writeIt (ele, arr, index, dir) {
+            ele.innerHTML += arr[index];
             if (dir === "v") {
               ele.innerHTML += "<br />";
             }else{ return; }
+          }
+
+          function doDelay(ele, arr, x, dir, dly) {
+            setTimeout(function(){
+                writeIt(ele, arr, x, dir);
+              },x * dly); /* multiply to keep consistant interval on each loop*/
+
           }
           newArr = (Array.isArray(content)) ? content : splitStr(content);
           elmt.className += opts.css;
           opts.parentEl.appendChild(elmt);
           for (var i = 0; i < newArr.length; i++) {
-            (function(e, o, x, l, d){
-              /* Invoke delay */
-              setTimeout(function(){
-                writeIt(e, o, x, l);
-              },x * d); /* multiply to keep consistant interval on each loop*/
-            })(elmt, newArr, i,  opts.layout, opts.delay);
+            doDelay(elmt, newArr, i, opts.layout, opts.delay);
           }
         }
 
@@ -228,8 +224,8 @@
         /* End Functions */
 
         init();
-    }
 
+    }
     /****
      * Dependencies
      ****/
@@ -262,6 +258,8 @@
     })();
     /* End Dependencies */
 
+
+
    /**
     * Expose Chardelay
     */
@@ -279,4 +277,4 @@
     } else {
         window.Chardelay = Chardelay;
     }
-}(this));
+}());
