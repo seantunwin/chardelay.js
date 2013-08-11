@@ -5,37 +5,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>chardelay.js : Delay Appearance of Each Character Displayed</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
 </head>
 <body>
 	<div id="container" class="hldr"></div>
   <!-- The span below is for you to play Chardelay around with placement around other elements -->
-	<span>Lorem ipsum</span>
-
+	<span>Lorem ipsum</span>	
+	<div id="test"></div>
   <script src="js/chardelay.js"></script>
   <script>
   	function start(){
-  			var str = 'You are a slave. Like everyone else, you were born into bondage, born into a prison that you cannot smell or taste or touch. A prison...for your mind...Unfortunatly, no one can be..._told_ what the Matrix is...you have to see it for yourself.';
-
+		var str = 'You are a slave. Like everyone else, you were born into bondage, born into a prison that you cannot smell or taste or touch. A prison...for your mind...Unfortunatly, no one can be..._told_ what the Matrix is...you have to see it for yourself.';
+		var s2 = "1234";
+		var s3 = ['<img src="http://i.imgur.com/ZQDT6QT.gif" width="248" height="180" />', '<img src="http://i.imgur.com/j2CWMG7.gif" width="248" height="180" />', '<img src="http://i.imgur.com/rfllNHS.gif" width="248" height="180" />', '<img src="http://i.imgur.com/UWJdcbd.gif" width="248" height="180" />']
   		var arr = ["Alvin", 1, "Simon", 2, "Theodore", 3];
-			var o1 = {"Alvin": 1, "Simon": 2, "Theodore": 3}; // This will fail because wrong type: object
-			//var myCD = Chardelay(s1,"h", 500);
-			//var myCD = new Chardelay();
-      /* The below has wrong argument types for options to show that it won't fail, but use defaults will be used instead */
-			//var myCD = Chardelay(s2,"v",215,"div", 4, 7, "u"); 
-			//var myCD = Chardelay(str);
-			//var myCD = Chardelay(str,{"parentEl": document.getElementById("container")});
-			///*
-			var myCD1 = Chardelay(str,{
-			                "layout": "h",
-			                "delay": 65,
-			                "inElement": "span",
-			                "css": "chardelay",
-			                "parentEl": "hldr"
-			               });
-			
-			//*/
+		var o1 = {"Alvin": 1, "Simon": 2, "Theodore": 3}; // This will fail because wrong type: object
+		//var myCD = Chardelay(s1,"h", 500);
+		//var myCD = new Chardelay();
+		/* The below has wrong argument types for options to show that it won't fail, but use defaults will be used instead */
+		//var myCD = Chardelay(s2,"v",215,"div", 4, 7, "u"); 
+		//var myCD = Chardelay(str);
+		//var myCD = Chardelay(str,{"parentEl": document.getElementById("container")});
+		///*
+		var myCD2 = Chardelay(s3,{
+		                "layout": "h",
+		                "delay": 865,
+		                "inEl": "span",
+		                "css": "chardelay",
+		                "parentEl": $(".hldr"),
+		                "multi": true
+		               });
+		
+		//*/
   	}
     /*
      * For older browsers to ensure external js is loaded

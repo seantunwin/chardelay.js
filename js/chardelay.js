@@ -9,11 +9,12 @@
 * var myVar = Chardelay(content, options);
 * @content: String or Array
 * @options:
-*       @layout: String (h OR v)
-*       @delay: Number (> 0)
-*       @inEl: String (Elements accepted: p OR span OR div)
-*       @css: String (CSS class name)
-*       @parentEl: Object (HTML element)
+*       @layout     : String (h OR v)
+*       @delay      : Number (> 0)
+*       @inEl       : String (Elements accepted: p OR span OR div)
+*       @css        : String (CSS class name)
+*       @parentEl   : Object (HTML element)
+*       @multi      : Boolean 
 *
 *************** 
 * Copyright 2013 Sean T. Unwin
@@ -32,7 +33,8 @@
                 "delay": 150,
                 "inEl": "span",
                 "css": "chardelay",
-                "parentEl": window.document.body
+                "parentEl": window.document.body,
+                "multi": false
             };
 
         function contentConfig(){
@@ -100,7 +102,6 @@
 
             function validate() {
                 var i,
-                    oVal,
                     tVal,
                     step = 0;
                 function setAsDefault() {
@@ -109,20 +110,21 @@
                 }
                 function setAsOption() {
                     if(arguments[0] !== undefined){
-                        opts[Object.keys(optsTmp)[step]] = arguments[0];
+                        opts[Object.keys(defaults)[step]] = arguments[0];
                     } else {
-                    opts[Object.keys(optsTmp)[step]] = tVal;
+                    opts[Object.keys(defaults)[step]] = tVal;
                     }
                     return;
                 }
 
                 for (i in defaults) {
                         tVal = optsTmp[Object.keys(optsTmp)[step]];
-                    oVal = opts[Object.keys(opts)[step]];
                     switch (step) {
                         case 0:
                             if (typeof tVal === "string") {
-                               opts[Object.keys(optsTmp)[step]] = (tVal === "v" || tVal === "h") ? tVal : "h";
+                                setAsOption(function(t){
+                                    t = (t === "v" || t === "h") ? t : "h";
+                                }(tVal))
                             }
                         break;
                         case 1:
@@ -137,9 +139,9 @@
                             }
                         break;
                         case 2:
-                            if (typeof tVal === "string") {
+                            if (tVal && typeof tVal === "string") {
                                 if(tVal === "p" || tVal === "span" || tVal === "div") {
-                                    opts[Object.keys(optsTmp)[step]] = tVal;
+                                    setAsOption();
                                 } else {
                                     setAsDefault();
                                 }
@@ -147,7 +149,7 @@
                         break;
                         case 3:
                             if (typeof tVal === "string") {
-                                opts[Object.keys(optsTmp)[step]] = tVal;
+                                setAsOption();
                             } else {
                                 setAsDefault();
                             }
@@ -155,9 +157,9 @@
                         case 4:
                             if (typeof tVal === "object") {
                                 if (tVal instanceof jQuery) {
-                                    opts[Object.keys(optsTmp)[step]] = tVal[0];
+                                    setAsOption(tVal[0]);
                                 } else {
-                                    opts[Object.keys(optsTmp)[step]] = tVal;
+                                    setAsOption();
                                 }
                             } else if (typeof tVal === "string") {
                                 if (document.getElementById(tVal)) {
@@ -172,6 +174,12 @@
                                 setAsDefault();
                             }
                             break;
+                        case 5:
+                            if(typeof tVal === "boolean" && tVal === true) {
+                                setAsOption();
+                            } else {
+                                setAsDefault();
+                            }
                         default: break;
                     }
                     step++;
@@ -183,36 +191,71 @@
             } else {
                 opts = defaults;
             }
-        }
+        }   
 
         function writeToDOM() {
-          var newArr = [],
-                elmt = document.createElement(opts.inEl);
+            var itemArr = [];
 
-          function splitStr(s){
-            s.split("");
-            return s;
-          }
+            function createElmt(v) {
+                v = document.createElement(opts.inEl);
+                    v.className += opts.css;
+                if (opts.multi && opts.layout === "v") {
+                    v.style.display = "table";
+                    v.style.verticalAlign = "middle";
+                }
+                return v;
+            }
+            function contentToElmt(el, item, dir) { 
+                el.innerHTML += itemArr[item];
+                if (dir === "v") {
+                    if (!opts.multi) {
+                      el.innerHTML += "<br />";
+                    } else {
+                        return;
+                    }
+                }
+            }
 
-          function writeIt (ele, arr, index, dir) {
-            ele.innerHTML += arr[index];
-            if (dir === "v") {
-              ele.innerHTML += "<br />";
-            }else{ return; }
-          }
+            function doDelay(el, x, dir, dly) {
+                setTimeout(function(){
+                    if (opts.multi) {
+                        writeIt(el);
+                    }
+                    contentToElmt(el, x, dir);
+                },x * dly);
+            }
 
-          function doDelay(ele, arr, x, dir, dly) {
-            setTimeout(function(){
-                writeIt(ele, arr, x, dir);
-              },x * dly); /* multiply to keep consistant interval on each loop*/
+            function setStage() {
+                var el,
+                    elArr = [];
 
-          }
-          newArr = (Array.isArray(content)) ? content : splitStr(content);
-          elmt.className += opts.css;
-          opts.parentEl.appendChild(elmt);
-          for (var i = 0; i < newArr.length; i++) {
-            doDelay(elmt, newArr, i, opts.layout, opts.delay);
-          }
+                if (!opts.multi) {
+                    el = createElmt(el);
+                    writeIt(el);
+                }                    
+                for (var i = 0; i < itemArr.length; i++) {
+                    if(!opts.multi) {
+                        doDelay(el, i, opts.layout, opts.delay);
+                    } else {
+                        el = createElmt(el);
+                        //writeIt(el);
+                        elArr.push(el);
+                        doDelay(elArr[i], i, opts.layout, opts.delay);
+                    }
+                }
+           }
+
+            function splitStr(s){
+                s.split("");
+                return s;
+            }
+
+            function writeIt (el) {
+                opts.parentEl.appendChild(el);
+            }
+
+            itemArr = (Array.isArray(content)) ? content : splitStr(content);
+            setStage();
         }
 
         function init() {
@@ -257,8 +300,6 @@
 
     })();
     /* End Dependencies */
-
-
 
    /**
     * Expose Chardelay
