@@ -37,7 +37,7 @@ var myChardelay = Chardelay( contentString, {
                       "delay"   : 225,
                       "inEl"    : "div",
                       "css"     : "shadow",
-                       "multi"  : false
+                       "multi"  : true
 
                   });
 ```
