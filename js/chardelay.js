@@ -29,11 +29,11 @@
             args = arguments,
             opts = {},
             defaults = {
+                "parentEl": window.document.body,
                 "layout": "h",
                 "delay": 150,
                 "inEl": "span",
                 "css": "chardelay",
-                "parentEl": window.document.body,
                 "multi": false
             };
 
@@ -53,7 +53,7 @@
                   content = false;
                   return false;
                 }
-            }
+            } /* END validate */
 
             try {
                 if(c === undefined){
@@ -66,132 +66,135 @@
                 content = false;
                 return false;
             }
-        }
+        } /* END contentConfig() */
 
         function optionsConfig(){
-            var defsLen,
-                argsLen,
-                optsLen,
-                isArgs,
-                optsTmp = {},
+            var optsLen,
                 isSet = true;
 
             function setup() {
 
-                var item;
-                defsLen = Object.keys(defaults).length;
-                argsLen = args.length;
+                var item,
+                    defsLen = Object.keys(defaults).length, /* Number of default options */
+                    argsLen = args.length; /* Number of initial arguments */
+                /* Check for Options */
                 if (argsLen > 1) {
+                    /* Options were passed as Object */
                     if(argsLen === 2 && typeof args[1] === "object") {
-                        isArgs = false;
+                        /* Get number of Options passed */
                         optsLen = Object.keys(options).length;
-                        optsTmp = options;
-                    } else {
-                        isArgs = true;
+                            item = 0;
+                            /* Check Properties for Options that match Defaults */
+                                for (var op in options) {
+                                    for ( var prop in defaults) {
+                                        if (op === prop) {
+                                            opts[prop] = options[prop];
+                                        } else if (typeof options[prop] === "undefined" ) {
+                                            opts[prop] = defaults[prop];
+                                        } else {
+                                            opts[op] = options[op];
+                                        }
+                                    }
+                                }
+                    } else { /* Options passed as argument array */
                         optsLen = args.length-1;
-
                         for (item = 0; item <= defsLen-1; item++) {
-                            optsTmp[Object.keys(defaults)[item]] = args[item+1];
+                            opts[Object.keys(defaults)[item]] = args[item+1];
                         }
                     }
                 } else {
                     isSet = false;
                     return false;
                 }
-            }
+            } /* END setup() */
 
             function validate() {
-                var i,
-                    tVal,
+                var tVal,
                     step = 0;
-                function setAsDefault() {
-                    opts[Object.keys(optsTmp)[step]] = defaults[Object.keys(defaults)[step]];
+
+                function setAsDefault(i) {
+                    opts[i] = defaults[i];
                     return;
-                }
-                function setAsOption() {
-                    if(arguments[0] !== undefined){
-                        opts[Object.keys(defaults)[step]] = arguments[0];
+                } /* END setAsDefault */
+
+                function setAsOption(i) {
+                    if(arguments[1] !== undefined){
+                        opts[i] = arguments[1];
                     } else {
-                    opts[Object.keys(defaults)[step]] = tVal;
+                        opts[i] = tVal;
                     }
                     return;
-                }
-
-                for (i in defaults) {
-                        tVal = optsTmp[Object.keys(optsTmp)[step]];
-                    switch (step) {
-                        case 0:
-                            if (typeof tVal === "string") {
-                                setAsOption(function(t){
-                                    t = (t === "v" || t === "h") ? t : "h";
-                                }(tVal))
-                            }
-                        break;
-                        case 1:
-                            if (typeof tVal === "number" && tVal > 0) {
-                                setAsOption();
-                            } else {
-                                if (optsTmp[Object.keys(optsTmp)[step]] === "v") {
-                                    setAsOption(400);
+                } /* END setAsOption */
+                
+                for (var i in defaults) {
+                        tVal = opts[i];
+                        switch (i) {
+                            case "parentEl":
+                                if (tVal && typeof tVal === "object") {
+                                    if (tVal instanceof window.jQuery || tVal.nodeType === 1 || Object.prototype.toString.call(tVal).match(/^\[object\s(.*)\]$/)[1] === "NodeList" || tVal.constructor.name === "NodeList") {
+                                        setAsOption(i, tVal[0]);
+                                    } else {
+                                        setAsDefault(i);
+                                    }
                                 } else {
-                                    setAsOption(150);
+                                    setAsDefault(i);
                                 }
-                            }
-                        break;
-                        case 2:
-                            if (tVal && typeof tVal === "string") {
-                                if(tVal === "p" || tVal === "span" || tVal === "div") {
-                                    setAsOption();
-                                } else {
-                                    setAsDefault();
-                                }
-                            }
-                        break;
-                        case 3:
-                            if (typeof tVal === "string") {
-                                setAsOption();
-                            } else {
-                                setAsDefault();
-                            }
-                        break;
-                        case 4:
-                            if (typeof tVal === "object") {
-                                if (tVal instanceof jQuery) {
-                                    setAsOption(tVal[0]);
-                                } else {
-                                    setAsOption();
-                                }
-                            } else if (typeof tVal === "string") {
-                                if (document.getElementById(tVal)) {
-                                    setAsOption(document.getElementById(tVal));
-                                } else if (document.querySelectorAll("." + tVal)) {
-                                    setAsOption(document.querySelectorAll("." + tVal).item(0));
-                                } else {
-                                    setAsDefault();
-                                }
-
-                            } else {
-                                setAsDefault();
-                            }
                             break;
-                        case 5:
-                            if(typeof tVal === "boolean" && tVal === true) {
-                                setAsOption();
-                            } else {
-                                setAsDefault();
-                            }
-                        default: break;
-                    }
-                    step++;
+                            case "layout":
+                                if (tVal && typeof tVal === "string") {
+                                    if (tVal=== "v" || tVal === "h") {
+                                        setAsOption(i);
+                                    } else {
+                                        setAsDefault(i);
+                                    }
+                                } else {
+                                    setAsDefault(i);
+                                }
+                            break;
+                            case "delay":
+                                if (tVal && typeof tVal === "number" && tVal > 0) {
+                                    setAsOption(i);
+                                } else {
+                                    setAsDefault(i);
+                                }
+                            break;
+                            case "inEl":
+                                if (/^\s*$/.test(tVal) !== false && typeof tVal === "string") {
+
+                                    if(tVal === "p" || tVal === "span" || tVal === "div") {
+                                        setAsOption(i);
+                                    } else {
+                                        setAsDefault(i);
+                                    }
+                                }
+                            break;
+                            case "css":
+                                if (tVal && typeof tVal === "string") {
+                                    setAsOption(i);
+                                } else {
+                                    setAsDefault(i);
+                                }
+                            break;
+                            case "multi":
+                                if(tVal && typeof tVal === "boolean" && tVal === true) {
+                                    setAsOption(i);
+                                } else {
+                                    setAsDefault(i);
+                                }
+                            break;
+                            default: break;
+                        }
+                        step++;
                 }
-            }
+            } /* END validate */
+
             setup();
             if(isSet === true) {
                 validate();
             } else {
                 opts = defaults;
             }
-        }   
+        } /* END optionsConfig */
 
         function writeToDOM() {
             var itemArr = [];
@@ -204,8 +207,9 @@
                     v.style.verticalAlign = "middle";
                 }
                 return v;
-            }
-            function contentToElmt(el, item, dir) { 
+            } /* END createElmt */
+
+            function contentToElmt(el, item, dir) {
                 el.innerHTML += itemArr[item];
                 if (dir === "v") {
                     if (!opts.multi) {
@@ -214,8 +218,8 @@
                         return;
                     }
                 }
-            }
-
+            } /* END contentToElmt() */
+            
             function doDelay(el, x, dir, dly) {
                 setTimeout(function(){
                     if (opts.multi) {
@@ -223,7 +227,7 @@
                     }
                     contentToElmt(el, x, dir);
                 },x * dly);
-            }
+            } /* END doDelay() */
 
             function setStage() {
                 var el,
@@ -232,43 +236,43 @@
                 if (!opts.multi) {
                     el = createElmt(el);
                     writeIt(el);
-                }                    
+                }
                 for (var i = 0; i < itemArr.length; i++) {
                     if(!opts.multi) {
                         doDelay(el, i, opts.layout, opts.delay);
                     } else {
                         el = createElmt(el);
-                        //writeIt(el);
                         elArr.push(el);
                         doDelay(elArr[i], i, opts.layout, opts.delay);
                     }
                 }
-           }
+           } /* END setStage */
 
             function splitStr(s){
                 s.split("");
                 return s;
-            }
+            } /* END splitStr */
 
             function writeIt (el) {
                 opts.parentEl.appendChild(el);
-            }
+            } /* END writeIt */
 
             itemArr = (Array.isArray(content)) ? content : splitStr(content);
             setStage();
-        }
+        } /* END writeToDOM */
 
         function init() {
             contentConfig();
             if (content === false){return false;}
             optionsConfig();
             writeToDOM();
-        }
-        /* End Functions */
+        } /* END init */
+        /* END Functions */
 
         init();
 
-    }
+    } /* END Chardelay */
+
     /****
      * Dependencies
      ****/
@@ -299,7 +303,7 @@
         };
 
     })();
-    /* End Dependencies */
+    /* END Dependencies */
 
    /**
     * Expose Chardelay
