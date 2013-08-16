@@ -6,57 +6,44 @@
     <title>chardelay.js : Delay Appearance of Each Character Displayed</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
 </head>
 <body>
 	<div id="container" class="hldr"></div>
   <!-- The span below is for you to play Chardelay around with placement around other elements -->
 	<span>Lorem ipsum</span>	
-	<div id="test"></div>
+	<div class="thing"></div>
   <script src="js/chardelay.js"></script>
   <script>
   	function start(){
+  		/* Different content to pass */
 		var str = 'You are a slave. Like everyone else, you were born into bondage, born into a prison that you cannot smell or taste or touch. A prison...for your mind...Unfortunatly, no one can be..._told_ what the Matrix is...you have to see it for yourself.';
 		var s2 = "1234";
 		var s3 = ['<img src="http://i.imgur.com/ZQDT6QT.gif" width="248" height="180" />', '<img src="http://i.imgur.com/j2CWMG7.gif" width="248" height="180" />', '<img src="http://i.imgur.com/rfllNHS.gif" width="248" height="180" />', '<img src="http://i.imgur.com/UWJdcbd.gif" width="248" height="180" />']
   		var arr = ["Alvin", 1, "Simon", 2, "Theodore", 3];
 		var o1 = {"Alvin": 1, "Simon": 2, "Theodore": 3}; // This will fail because wrong type: object
-		//var myCD = Chardelay(s1,"h", 500);
-		//var myCD = new Chardelay();
+		
+		//var myCD = Chardelay(s2,"", "h", 500);
+		//var myCD = new Chardelay(s2);
 		/* The below has wrong argument types for options to show that it won't fail, but use defaults will be used instead */
-		//var myCD = Chardelay(s2,"v",215,"div", 4, 7, "u"); 
-		//var myCD = Chardelay(str);
+		//var myCD = Chardelay(arr, $(".hldr"), "q", 415,"a", 4, true, "u"); 
+		var myCD = Chardelay(s2, {"layout": "v", "css": "other", "parentEl": document.querySelector(".hldr")});
 		//var myCD = Chardelay(str,{"parentEl": document.getElementById("container")});
-		///*
-		var myCD2 = Chardelay(s3,{
-		                "layout": "h",
-		                "delay": 865,
-		                "inEl": "span",
-		                "css": "chardelay",
+		/*
+		var myCD = Chardelay(str,{
 		                "parentEl": $(".hldr"),
-		                "multi": true
+		                "layout"  : "h",
+		                "delay"   : 125,
+		                "inEl"    : "div",
+		                "css"     : "chardelay",
+		                "multi"   : false
+
 		               });
 		
 		//*/
   	}
-    /*
-     * For older browsers to ensure external js is loaded
-     * Snippet copied from :
-     * http://www.javascriptkit.com/dhtmltutors/domready.shtml
-     */
-  	if (document.addEventListener) {
-  		document.addEventListener("DOMContentLoaded", start(), false)
-  	} else if (document.all && !window.opera){
-	  document.write('<script type="text/javascript" id="contentloadtag" defer="defer" src="javascript:void(0)"><\/script>')
-	  var contentloadtag=document.getElementById("contentloadtag")
-	  contentloadtag.onreadystatechange=function(){
-		    if (this.readyState=="complete"){
-		      alreadyrunflag=1
-		      start()
-		    }
-		}
-	}
+    $(start);
   </script>
 </body>
 </html>
