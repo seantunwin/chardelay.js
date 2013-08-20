@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Chardleay.js</title>
+        <meta name="description" content="Chardelay.js, JavaScript library, Delay appearance of content in an HTML web page,Sean T. Unwin">
+        <meta name="author" content="Sean T. Unwin">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet"  href="css/shThemeMonokai.css">
+
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <header id="hdr-main">
+        <h1 class="title">Chardelay.js</h1>
+        <h2 class="title-desc">A tiny stand-alone library that allows you to dynamically add content to a web page and delay it's appearance on the screen.</h2>
+        <a class="github-ribbon" href="https://github.com/seantunwin/chardelay.js" target="_blank"><img src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+        <div class="social">
+            <div class="twitter">
+                <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="seantunwin" data-lang="en">Tweet</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            </div>
+            <div class="google">
+                <div class="g-plusone"></div>
+                <script>(function() { var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/plusone.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); })();</script>
+            </div>
+            <div class="linkdin">
+                    <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+                    <script type="IN/Share" data-counter="right"></script>
+            </div>
+        </div>
+    </header>
+    <article id="container">
+        <section id="about">
+            <h3 class="section-title">About</h3>
+            <p><a href="https://github.com/seantunwin/chardelay.js" title="Download Chardelay.js">Chardelay.js</a> is a tiny (1.5Kb gzipped) library that creates at least one new element that will display each item of content with a delay. In it's simplest form it will display text similar to a typing effect. Chardelay.js has been designed to perform with most modern browsers including IE8. While Chardelay.js can stand on it's own without any other library dependencies it is capable of accepting a jQuery element object as a parameter.</p>
+             <div class="example">
+                <div class="code-lg example-tryit">
+                    <p>[ Press button to start ]</p>
+                </div>
+                <button class="btn btn-tryit">Try It</button>
+        </div>
+        </section>
+        <section id="getting-started">
+           <h3 class="section-title">Getting Started</h3>
+            <p>Grab a <a href="https://github.com/seantunwin/chardelay.js" title="Download Chardelay.js">copy</a> then add the minified version to your document (the following assumes you have a <code class="code-sm">/js</code> directory to place the file into):</p>
+            <div class="figboundry">
+                <figure>
+                    <div class="code-lg sh-101">
+                        <pre class="brush: html; gutter: false;"> 
+                            &lt;script src="js/chardelay.min.js">&lt;/script>
+                        </pre>
+                    </div>
+                    <figcaption>Example of adding Chardelay to an HTML document.</figcaption>
+                </figure>
+            </div>
+            <p>Once that is in place we can begin with the initialization. The initialization can be simple or <a href="#usage">robust</a>.</p>
+            <p>In it's simplest form a new Chardelay instance can be created with only one argument. This required arugment will be the content which we want to have a delayed display. This argument takes either a <code class="code-sm">String</code>, <code class="code-sm">Number</code>, or an <code class="code-sm">Array</code>.</p>
+
+            <div class="figboundry">
+                <figure>
+                     <div class="code-lg sh-102">
+                        <pre class="brush: js ">
+                            // Create a string
+                            var myStr = "No matter where you go, there you are.";
+                            // Create a basic Chardelay instance
+                            var myCd = Chardelay(myStr);
+                        </pre>
+                    </div>
+                    <figcaption>Illustrating the most basic instance of Chardelay.</figcaption>
+                </figure>
+            </div>
+            <p>This minimal usage may not be entirely practical as it uses the default settings so Chardelay.js allows for customization via overriding the defaults with optional parameters.</p>
+
+            <h4 class="section-subhead">Optional Parameters</h4>
+            <p>Chardelay.js has six (6) optional parameters that are available.</p>
+            <dl>
+                <dt><code class="code-sm option">parentEl</code> :</dt>
+                <dd><em>Object</em> of parent element for <code class="code-sm">inEl</code> to be used as a container. Must be a valid HTML element object. Accepts element by Id, Class, or jQuery element object.
+                    <br />
+                    <em>Default</em>: <code class="code-sm">document.body</code>.</dd>
+                <dt><code class="code-sm option">layout</code> :</dt>
+                <dd><em>String</em> of output display - <code class="code-sm">"h"</code> = horizontal, <code class="code-sm">"v"</code> = vertical.
+                    <br />
+                    <em>Default</em>: <code class="code-sm">"h"</code>.</dd>
+                <dt><code class="code-sm option">delay</code> :</dt>
+                <dd><em>Number</em> of milliseconds between placing output items. Must be greater than 0 or default will be used.
+                    <br />
+                    <em>Default</em>: <code class="code-sm">150</code>.</dd>
+                <dt><code class="code-sm option">inEl</code> :</dt>
+                <dd><em>String</em> of type of HTML element to create for our output to be placed inside. Accepted types are <code class="code-sm">"p"</code>, <code class="code-sm">"span"</code>, <code class="code-sm">"div"</code>.
+                    <br />
+                    <em>Default</em>: <code class="code-sm">span</code>.</dd>
+                <dt><code class="code-sm option">css</code> :</dt>
+                <dd><em>String</em> of CSS class for output to be styled as. Note: No dot(.).
+                    <br />
+                    <em>Default</em>: <code class="code-sm">chardelay</code>.</dd>
+                <dt><code class="code-sm option">multi</code> :</dt>
+                <dd><em>Boolean</em> to stipulate whether the content is to be placed inside a single HTML element or each item of content gets it's own element.
+                    <br />
+                    <em>Default</em>: <code class="code-sm">false</code>.</dd>
+            </dl>
+        </section>
+        <section id="usage">
+            <h3 class="section-title">Usage</h3>
+            <p>There are two (2) methods to implement a Chardelay.js instance, aside from the bare method that was shown above. These two methods are:
+                <ol>
+                    <li>Standard array of arguments:
+                        <figure>
+                         <div class="code-lg sh-103">
+                            <pre class="brush: js;">
+                                //Here we are using a jQuery element object for the 'parentEl' optional argument
+                                var myCd = Chardelay( contentString, $("#container"), "h", 300, "p", "coolText", false );
+                            </pre>
+                        </div>
+                        <figcaption>Instantiation using array of arguments</figcaption>
+                        </figure>
+                    </li>
+                    <li>Arguments array with object used for optional parameters:
+                        <figure>
+                            <div class="code-lg sh-103">
+                                <pre class="brush: js;">
+                                    // By setting 'multi' to true each character will be inside it's own div
+                                    var myCd = Chardelay( contentString, {
+                                                    "parentEl": document.querySelector(".myClass"),
+                                                    "layout"  : "v",
+                                                    "delay"   : 225,
+                                                    "inEl"    : "div",
+                                                    "css"     : "shadowText",
+                                                    "multi"   : true
+                                                });
+
+                                </pre>
+                            </div>
+                            <figcaption>Instantiation using an object for optional parameters</figcaption>
+                        </figure>
+                        This usage allows more freedom. The options do not have to be in order and can use as few options as needed, even simply changing the css parameter to another class.
+                    </li>
+                </ol>
+        </section>
+        <section id="samples">
+            <h3 class="section-title">Samples</h3>
+            <h4 class="sample-title">Display a horizontal menu of multiple spans with a .3s delay</h4>
+
+            <div class="sample-box box-1">
+                <button class="btn btn-sample btn-sample-hnav">Go</button>
+                <div class="sample-box-hnav"></div>
+            </div>
+            <hr />
+            <h4 class="sample-title">Display a column of numbers inside multiple &lt;p&gt;'s with a .4s delay</h4>
+            <div class="sample-box box-2">
+                <button class="btn btn-sample btn-sample-vlist">Go</button>
+                <div class="sample-box-vlist"></div>
+            </div>
+            <hr />
+            <h4 class="sample-title">Display an image gallery of multiple divs with a .5s delay</h4>
+            <div class="sample-box box-3">
+                <button class="btn btn-sample btn-sample-gal">Go</button>
+                <div class="sample-box-gal"></div>
+            </div>
+            <hr />
+        </section>
+    </article> <!-- END #container -->
+
+    <!-- BEGIN Footer -->
+    <footer class="ftr-main">
+        <p><span class="copyright">&copy;</span>2013 <a href="https://twitter.com/seantunwin" title="contact me on Twitter">Sean T. Unwin</a></p>
+    </footer>
+    <!-- END Footer -->
+    <!-- BEGIN Scripts -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+    <script src="js/vendor/shCore.js" type="text/javascript"></script>
+    <script src="js/vendor/shBrushXml.js" type="text/javascript"></script>
+    <script src="js/vendor/shBrushJScript.js" type="text/javascript"></script>
+    <script src="js/vendor/shBrushCss.js" type="text/javascript"></script>
+
+    <script src="js/main.js"></script>
+    <script src="js/chardelay.js"></script>
+    <!-- END Scripts -->
+    </body>
+</html>
