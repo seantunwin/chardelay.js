@@ -38,16 +38,31 @@
             };
 
         function contentConfig(){
+            // Remove extra index that IE8 adds to array
+            function cleanContent(c) {
+                for (var z = 0; z <= c.length; z++) {
+                    if(c[z] == undefined) { 
+                        c.splice(z, 1);
+                    }                    
+                }
+                return c;
+            } /* END cleanContent */
+
+            function splitStr(c) {
+                return c.split("");
+            } /* END splitStr */
 
             function validate(c) {
                 try {
-                  if (typeof c === "string" || Array.isArray(c)) {
-                    return c;
-                  } else if (typeof c === "number") {
-                    return c.toString();
-                  } else {
-                    throw new TypeError("content must be a String or Array");
-                  }
+                    if (typeof c === "string" ) {
+                        return splitStr(c);
+                    } else if (Array.isArray(c)) {
+                        return cleanContent(c);
+                    } else if (typeof c === "number") {
+                        return splitStr(c.toString());
+                    } else {
+                        throw new TypeError("content must be a String or Array");
+                    }
                 } catch(e) {
                   window.console.log(e.name + ": " + e.message);
                   content = false;
@@ -67,7 +82,6 @@
                 return false;
             }
         } /* END contentConfig() */
-
         function optionsConfig(){
             var optsLen,
                 isSet = true;
@@ -197,7 +211,6 @@
         } /* END optionsConfig */
 
         function writeToDOM() {
-            var itemArr = [];
 
             function createElmt(v) {
                 v = document.createElement(opts.inEl);
@@ -210,7 +223,7 @@
             } /* END createElmt */
 
             function contentToElmt(el, item, dir) {
-                el.innerHTML += itemArr[item];
+                el.innerHTML += content[item];
                 if (dir === "v") {
                     if (!opts.multi) {
                       el.innerHTML += "<br />";
@@ -237,7 +250,7 @@
                     el = createElmt(el);
                     writeIt(el);
                 }
-                for (var i = 0; i < itemArr.length; i++) {
+                for (var i = 0; i < content.length; i++) {
                     if(!opts.multi) {
                         doDelay(el, i, opts.layout, opts.delay);
                     } else {
@@ -248,16 +261,10 @@
                 }
            } /* END setStage */
 
-            function splitStr(s){
-                s.split("");
-                return s;
-            } /* END splitStr */
-
-            function writeIt (el) {
+            function writeIt(el) {
                 opts.parentEl.appendChild(el);
             } /* END writeIt */
 
-            itemArr = (Array.isArray(content)) ? content : splitStr(content);
             setStage();
         } /* END writeToDOM */
 
