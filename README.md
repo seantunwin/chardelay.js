@@ -48,11 +48,7 @@ var myChardelay = Chardelay( contentString, {
 2. Options:
     1. `parentEl`: Object of parent element for `inEl` to be used as a container. Must be a valid HTML element object. Accepts element by Id, Class, or jQuery element object. _Default_: `document.body`.
     2. `layout`: String of output display - `"h"` = horizontal, `"v"` = vertical. _Default_: `"h"`.
-<<<<<<< HEAD
     3. `delay`: Number of milliseconds between placing output items. Must be greater than 0 or default will be used. _Default_: `150`.
-=======
-    3. `delay`: Number of milliseconds between placing output items.  Must be greater than 0 or default will be used. _Default_: `150`.
->>>>>>> b89422811066bf6923a05a3aef724e1e06f8b2a4
     4. `inEl`: String of type of HTML element to create for our output to be placed inside. Accepted types are `"p"`, `"span"`, `"div"`. _Default_: `span`. 
     5. `css`: String of CSS class for output to be styled as. Note: No dot(.). _Default_: `chardelay`.
     6. `multi`: Boolean to stipulate whether the content is to be placed inside a single HTML element or each item of content gets it's own element. _Default_: `false`.
