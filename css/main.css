@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Calligraffitti);
 
 html,
 button,
@@ -82,17 +83,26 @@ h3, h4 {
     margin: 0 12%;
     padding: 0;
 }
+.multiplebgs #hdr-main, .multiplebgs .ftr-main {
+    background: url(img/ticks.png), #c0b6c4;
+    background-repeat: repeat, no-repeat;
+}
+.no-multiplebgs #hdr-main, .no-multiplebgs .ftr-main {
+    background: #c0b6c4;
+}
 #hdr-main {
     position: relative;
-    background: #c0b6c4;
+    background: rgba(192, 182, 196, 0.3), url(img/ticks.png);
     border-top: 3px solid #D6CB55;
     height: 22em;
     width: 100%;
     margin: 0 auto;
 }
 #hdr-main .title {
-    font-size: 4em;
+    font-family: Calligraffitti, sans-serif;
+    font-size: 4.5em;
     text-align: center;
+    text-shadow: 1px 2px 1px #222, 3px 5px #ececec;
 }
 #hdr-main .title-desc {
     margin: 0 auto;
@@ -203,7 +213,6 @@ h3, h4 {
     width: 531px;
 }
 .ftr-main {
-    background: #c0b6c4;
     height: 5em;
     margin: 0;
     margin-bottom: -5px;
@@ -476,6 +485,7 @@ h3, h4 {
     #hdr-main .title {
         font-size: 3em;
         margin-top: .9em;
+    text-shadow: 1px 1px 1px #222, 2px 3px #ececec;
     }
     #hdr-main .title-desc {
         margin-left: 13%;
@@ -490,11 +500,8 @@ h3, h4 {
         overflow: hidden;
     }
     .sh-101 {
-        height: 26px;
+        height: 2.5em;
     }
-    .sh-102 {
-    }
-
     .code-lg {
         margin: 0;
         width: 98%;

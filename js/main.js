@@ -82,10 +82,20 @@ function startTryit() {
 	oTryit.find(".chardelay").remove();
 	myCd = Chardelay(myStr, {"parentEl": oTryit});
 }
+function lazyLoad(s) {
+	var d = window.document,
+		b = d.body,
+		e = d.createElement("script");
 
+	e.async = true;
+	e.src = s;
+	b.appendChild(e);
+}
 $(function() {
 	SyntaxHighlighter.defaults["toolbar"] = false;
 	SyntaxHighlighter.all();
+
+	lazyLoad("//platform.linkedin.com/in.js");
 
 	$(".btn-tryit").on("click", startTryit);
 	$(".btn-sample-hnav").on("click", startHNav);
