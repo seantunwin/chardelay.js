@@ -1,6 +1,6 @@
 /**
 * chardelay.js - Delay the output of content in an HTML document
-* @version : 1.0.1
+* @version : 1.1.0
 * @author: Sean T. Unwin
 * @contact: <sean DOT t DOT unwin AT gmail DOT com> <https://twitter.com/seantunwin>
 * @url: https://github.com/seantunwin/chardelay.js
@@ -285,6 +285,8 @@
                     if(!opts.overwrite) {
                         el = createElmt(el);
                         writeIt(el);
+                    } else {
+                        opts.parentEl.innerHTML = '';
                     }
                 }
                 for (var i = 0; i < content.length; i++) {
