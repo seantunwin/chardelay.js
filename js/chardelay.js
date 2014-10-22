@@ -191,30 +191,10 @@
                                     setAsDefault(i);
                                 }
                             break;
-                            case 'overwrite':
-                                if(tVal &&typeof tVal === 'boolean') {
-                                    if(tVal === true) {
-                                        setAsOption(i);
-                                    } else {
-                                        setAsDefault(i);
-                                    }
-                                }
-                                break;
-                            case 'layout':
-                                if (tVal && typeof tVal === 'string') {
-                                    if (tVal=== 'v' || tVal === 'h') {
-                                        setAsOption(i);
-                                    } else {
-                                        setAsDefault(i);
-                                    }
-                                } else {
-                                    setAsDefault(i);
-                                }
-                            break;
                             case 'inEl':
                                 if (/^\s*$/.test(tVal) !== false && typeof tVal === 'string') {
 
-                                    if(tVal === 'p' || tVal === 'span' || tVal === 'div' || tVal === /[Hh][1-6]/.test(tVal) || tVal === 'li') {
+                                    if(tVal === 'p' || tVal === 'span' || tVal === 'div' || tVal === /[Hh][1-6]/.test(tVal) || tVal === 'ul') {
                                         setAsOption(i);
                                     } else {
                                         setAsDefault(i);
@@ -228,6 +208,26 @@
                                     setAsDefault(i);
                                 }
                             break;
+                            case 'layout':
+                                if (tVal && typeof tVal === 'string') {
+                                    if (tVal=== 'v' || tVal === 'h') {
+                                        setAsOption(i);
+                                    } else {
+                                        setAsDefault(i);
+                                    }
+                                } else {
+                                    setAsDefault(i);
+                                }
+                            break;
+                            case 'overwrite':
+                                if(tVal &&typeof tVal === 'boolean') {
+                                    if(tVal === true) {
+                                        setAsOption(i);
+                                    } else {
+                                        setAsDefault(i);
+                                    }
+                                }
+                                break;
                             case 'multi':
                                 if(tVal && typeof tVal === 'boolean' && tVal === true) {
                                     setAsOption(i);
