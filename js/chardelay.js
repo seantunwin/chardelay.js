@@ -13,10 +13,10 @@
 * @options:
 *       @parentEl : Object (HTML element)
 *       @delay : Number (> 0)
-*       @overwrite : Boolean
-*       @layout : String (h OR v)
 *       @inEl : String (Elements accepted: p OR span OR div)
 *       @css : String (CSS class name)
+*       @layout : String (h OR v)
+*       @overwrite : Boolean
 *       @multi : Boolean
 *
 ***************
@@ -46,12 +46,12 @@
             args = arguments,
             opts = {},
             defaults = {
-                'parentEl': window.document.body,
+                'parentEl': document.body,
                 'delay': 150,
-                'overwrite': false,
-                'layout': 'h',
                 'inEl': 'span',
                 'css': 'chardelay',
+                'layout': 'h',
+                'overwrite': false,
                 'multi': false
             };
 
@@ -214,7 +214,7 @@
                             case 'inEl':
                                 if (/^\s*$/.test(tVal) !== false && typeof tVal === 'string') {
 
-                                    if(tVal === 'p' || tVal === 'span' || tVal === 'div' || tVal === /[Hh][1-6]/.test(tVal) || tVal === 'ul') {
+                                    if(tVal === 'p' || tVal === 'span' || tVal === 'div' || tVal === /[Hh][1-6]/.test(tVal) || tVal === 'li') {
                                         setAsOption(i);
                                     } else {
                                         setAsDefault(i);
