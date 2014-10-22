@@ -35,12 +35,12 @@ var myChardelay = Chardelay( contentString, {
                                  or
                        * "parentEl": document.querySelector(".myClass")
                        */
-                      "delay"   : 225,
-                      "inEl"    : "div",
-                      "css"     : "shadow",
-                      "layout"  : "v",
+                      "delay"     : 225,
+                      "inEl"      : "div",
+                      "css"       : "shadow",
+                      "layout"    : "v",
                       "overwrite" : false
-                       "multi"  : true
+                      "multi"    : true
 
                   });
 ```
@@ -62,6 +62,8 @@ var myChardelay = Chardelay( contentString, {
 
 * If there is more than 1 element in the returned `NodeList` for `parentEl` only the first element will be used.
 * If `overwrite` is `true` and there is a flash of the original content before Chardelay does it's thing it is recommended to clear that content before instantiating Chardelay. You may want to store that content in a variable before hand if planning on using it.
+* If `overwrite` is `true` then `inEl` will not be considered.
+* If `multi` is `true` then `overwrite` will be considered `false`.
 
 ## License
 
