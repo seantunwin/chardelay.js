@@ -40,7 +40,7 @@ var myChardelay = Chardelay( contentString, {
                       "css"       : "shadow",
                       "layout"    : "v",
                       "overwrite" : false
-                      "multi"    : true
+                      "multi"     : true
 
                   });
 ```
