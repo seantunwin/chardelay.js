@@ -54,7 +54,7 @@ var myChardelay = Chardelay( contentString, {
     3. `inEl`: String of type of HTML element to create for our output to be placed inside. Accepted types are `"p"`, `"span"`, `"div"`, `"li"`, any header tag (`h1` to `h6`). _Default_: `"span"`.
     4. `css`: String of CSS class for output to be styled as. Note: No dot(.). _Default_: `chardelay`.
     5. `layout`: String of output display - `"h"` = horizontal, `"v"` = vertical. _Default_: `"h"`.
-    6. `overwrite`: Boolean to stipulate whether innerHTML of `parentEl` is overwritten.
+    6. `overwrite`: Boolean to stipulate whether innerHTML of `parentEl` is overwritten. _Default_: `false`.
     7. `multi`: Boolean to stipulate whether the content is to be placed inside a single HTML element or each item of content gets it's own element. _Default_: `false`.
 
 
