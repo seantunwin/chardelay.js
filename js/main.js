@@ -1,4 +1,20 @@
-var myStr = "No matter where you go, there you are.",
+var imgArr = [],
+	imgLocArr = [
+				["img/01.jpg","http://www.flickr.com/photos/7306738@N03/419635929"],
+				["img/02.jpg","http://www.flickr.com/photos/42507736@N02/5321720511"],
+				["img/03.jpg","http://www.flickr.com/photos/75988799@N00/431098835"],
+				["img/04.jpg","http://www.flickr.com/photos/42507736@N02/5055021024"],
+				["img/05.jpg","http://www.flickr.com/photos/36516818@N00/2161222087"],
+				["img/06.jpg","http://www.flickr.com/photos/45939540@N05/5988281117"],
+				["img/07.jpg","http://www.flickr.com/photos/53986933@N00/8147871467"],
+				["img/08.jpg","http://www.flickr.com/photos/22588240@N04/8168976577"],
+				["img/09.jpg","http://www.flickr.com/photos/37882873@N00/3196286183"],
+				["img/10.jpg","http://www.flickr.com/photos/37195641@N03/3715440219"],
+				["img/11.jpg","http://www.flickr.com/photos/12940826@N02/4908566352"],
+				["img/12.jpg","http://www.flickr.com/photos/35221329@N08/7817018096"]
+			],
+
+	myStr = "No matter where you go, there you are.",
 	navArr = [
 				'<a href="#about" class="test-menu-item">About</a>',
 				'<a href="#getting-started" class="test-menu-item">Get Started</a>',
@@ -17,10 +33,17 @@ var myStr = "No matter where you go, there you are.",
 				'<a href="http://www.flickr.com/photos/37882873@N00/3196286183" target="_blank"><img src="img/09.jpg" alt="" /></a>',
 				'<a href="http://www.flickr.com/photos/37195641@N03/3715440219" target="_blank"><img src="img/10.jpg" alt="" /></a>',
 				'<a href="http://www.flickr.com/photos/12940826@N02/4908566352" target="_blank"><img src="img/11.jpg" alt="" /></a>',
-				'<a href="http://www.flickr.com/photos/35221329@N08/7817018096" target="_blank"><img src="img/12.jpg" alt="" /></a>',
+				'<a href="http://www.flickr.com/photos/35221329@N08/7817018096" target="_blank"><img src="img/12.jpg" alt="" /></a>'
 			],
 	nums = 12345678;
 
+function preLoad(a, b) {
+	for (var k = 0; k <= a.length-1; k++) {
+		b[k] = new Image();
+		b[k].src = a[k][0];
+		b.alt = "";
+	}
+}
 function removeIt(s){
 	$("." + s).remove();
 }
@@ -33,27 +56,28 @@ function startGal() {
 		removeIt(css);
 		gal = Chardelay(galArr, {
 						"parentEl": hldr,
-						"layout": "h",
 						"delay": 500,
 						"inEl": "div",
 						"css": css,
+						"layout": "h",
+						"overwrite": false,
 						"multi": true
 					});
 }
 
 function startHNav() {
-	var hnav,
-		hldr = $(".sample-box-hnav"),
-		css = "sample-box-hnav-item";
-		
+	var hldr = $(".sample-box-hnav"),
+		css = "sample-box-hnav-item",
+		hnav;
 
 		removeIt(css);
 		hnav = Chardelay(navArr, {
 						"parentEl": hldr,
-						"layout": "h",
 						"delay": 300,
 						"inEl": "span",
 						"css": css,
+						"layout": "h",
+						"overwrite": false,
 						"multi": true
 					});
 }
@@ -66,10 +90,11 @@ function startVList() {
 		removeIt(css);
 		vlist = Chardelay(nums, {
 						"parentEl": hldr,
-						"layout": "v",
 						"delay": 400,
 						"inEl": "p",
 						"css": css,
+						"layout": "v",
+						"overwrite": false,
 						"multi": true
 					});
 }
@@ -80,8 +105,11 @@ function startTryit() {
 
 	oTryit.find("p").hide();
 	oTryit.find(".chardelay").remove();
-	myCd = Chardelay(myStr, {"parentEl": oTryit});
+	myCd = Chardelay(myStr, {
+		"parentEl": oTryit
+	});
 }
+
 function lazyLoad(s) {
 	var d = window.document,
 		b = d.body,
@@ -91,11 +119,12 @@ function lazyLoad(s) {
 	e.src = s;
 	b.appendChild(e);
 }
+
 $(function() {
 	SyntaxHighlighter.defaults["toolbar"] = false;
 	SyntaxHighlighter.all();
 
-	lazyLoad("//platform.linkedin.com/in.js");
+	preLoad(imgLocArr, imgArr);
 
 	$(".btn-tryit").on("click", startTryit);
 	$(".btn-sample-hnav").on("click", startHNav);
