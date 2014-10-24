@@ -12,8 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/main.min.css">
     <link rel="stylesheet"  href="css/shThemeMonokai.min.css">
+    <link rel="stylesheet" href="css/main.min.css">
 
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
@@ -25,21 +25,6 @@
         <h1 class="title">Chardelay.js</h1>
         <h2 class="title-desc">A tiny stand-alone library that allows you to dynamically add content to a web page and delay it's appearance on the screen.</h2>
         <a class="github-ribbon" href="https://github.com/seantunwin/chardelay.js" target="_blank"><img src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
-        <div class="social">
-            <div class="twitter">
-                <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="seantunwin" data-lang="en" data-url="http://seantunwin.github.io/chardelay.js" data-text="Chardelay.js - display content items with a delay"></a>
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-</script>
-            </div>
-            <div class="google">
-                <div class="g-plusone"></div>
-                <script>(function() { var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/plusone.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); })();
-</script>
-            </div>
-            <div class="linkdin">
-                    <script type="IN/Share" data-counter="right"></script>
-            </div>
-        </div>
     </header>
     <article id="container">
         <section id="about">
@@ -58,7 +43,7 @@
             <div class="figboundry">
                 <figure>
                     <div class="code-lg sh-101">
-                        <pre class="brush: html; gutter: false;"> 
+                        <pre class="brush: html; gutter: false;">
                             &lt;script src="js/chardelay.min.js">&lt;/script>
                         </pre>
                     </div>
@@ -90,10 +75,6 @@
                 <dd><em>Object</em> of parent element for <code class="code-sm">inEl</code> to be used as a container. Must be a valid HTML element object. Accepts element by Id, Class, or jQuery element object.
                     <br />
                     <em>Default</em>: <code class="code-sm">document.body</code>.</dd>
-                <dt><code class="code-sm option">layout</code> :</dt>
-                <dd><em>String</em> of output display - <code class="code-sm">"h"</code> = horizontal, <code class="code-sm">"v"</code> = vertical.
-                    <br />
-                    <em>Default</em>: <code class="code-sm">"h"</code>.</dd>
                 <dt><code class="code-sm option">delay</code> :</dt>
                 <dd><em>Number</em> of milliseconds between placing output items. Must be greater than 0 or default will be used.
                     <br />
@@ -106,6 +87,14 @@
                 <dd><em>String</em> of CSS class for output to be styled as. Note: No dot(.).
                     <br />
                     <em>Default</em>: <code class="code-sm">chardelay</code>.</dd>
+                <dt><code class="code-sm option">layout</code> :</dt>
+                <dd><em>String</em> of output display - <code class="code-sm">"h"</code> = horizontal, <code class="code-sm">"v"</code> = vertical.
+                    <br />
+                    <em>Default</em>: <code class="code-sm">"h"</code>.</dd>
+                <dt><code class="code-sm option">overwrite</code> :</dt>
+                <dd><em>Boolean</em>to stipulate whether innerHTML of parentEl is overwritten.
+                    <br />
+                    <em>Default</em>: <code class="code-sm">false</code>.</dd>
                 <dt><code class="code-sm option">multi</code> :</dt>
                 <dd><em>Boolean</em> to stipulate whether the content is to be placed inside a single HTML element or each item of content gets it's own element.
                     <br />
@@ -121,7 +110,7 @@
                          <div class="code-lg sh-103">
                             <pre class="brush: js;">
                                 //Here we are using a jQuery element object for the 'parentEl' optional argument
-                                var myCd = Chardelay( contentString, $("#container"), "h", 300, "p", "coolText", false );
+                                var myChardelay = Chardelay( contentString, $("#container"), 300, "p", "coolText", "v", false, true );
                             </pre>
                         </div>
                         <figcaption>Instantiation using array of arguments</figcaption>
@@ -131,16 +120,16 @@
                         <figure>
                             <div class="code-lg sh-103">
                                 <pre class="brush: js;">
-                                    // By setting 'multi' to true each character will be inside it's own div
-                                    var myCd = Chardelay( contentString, {
-                                                    "parentEl": document.querySelector(".myClass"),
-                                                    "layout"  : "v",
-                                                    "delay"   : 225,
-                                                    "inEl"    : "div",
-                                                    "css"     : "shadowText",
-                                                    "multi"   : true
-                                                });
-
+// By setting 'multi' to true each character will be inside it's own div
+var myChardelay = Chardelay( contentString, {
+      "parentEl"   : $("#container"),
+      "delay"         : 225,
+      "inEl"           : "div",
+      "css"             : "shadow",
+      "layout"       : "v",
+      "overwrite" : false
+      "multi"         : true
+});
                                 </pre>
                             </div>
                             <figcaption>Instantiation using an object for optional parameters</figcaption>
@@ -181,7 +170,7 @@
             <a href="http://www.linkedin.com/in/seantunwin" class="contact-link"><span class="icon-linkedin"></span></a>
             <a href="https://github.com/" class="contact-link"><span class="icon-github"></span></a>
         </nav>
-        <p><span class="copyright">&copy;</span>2013 <a href="https://twitter.com/seantunwin" title="contact me on Twitter">Sean T. Unwin</a></p>
+        <p><span class="copyright">&copy;</span>2013-2014 <a href="https://twitter.com/seantunwin" title="contact me on Twitter">Sean T. Unwin</a></p>
     </footer><!-- END Footer -->
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -189,8 +178,8 @@
     <script src="js/vendor/shCore.js" type="text/javascript"></script>
     <script src="js/vendor/shBrushes.min.js" type="text/javascript"></script>
 
-    <script src="js/main.min.js"></script>
     <script src="js/chardelay.min.js"></script>
+    <script src="js/main.js"></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
