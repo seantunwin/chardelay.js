@@ -41,7 +41,6 @@ var myChardelay = Chardelay( contentString, {
                       "layout"    : "v",
                       "overwrite" : false
                       "multi"     : true
-
                   });
 ```
 

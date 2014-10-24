@@ -122,21 +122,21 @@
                         item = 0;
 
                         /* Check Properties for Options that match Defaults */
-                            for (op in options) {
-                                for (prop in defaults) {
-                                    if (op === prop) {
-                                        opts[prop] = options[prop];
-                                    } else if (typeof options[prop] === 'undefined' ) {
-                                        opts[prop] = defaults[prop];
-                                    } else {
-                                        opts[op] = options[op];
-                                    }
+                        for (op in options) {
+                            for (prop in defaults) {
+                                if (op === prop) {
+                                    opts[prop] = options[prop];
+                                } else if (typeof options[prop] === 'undefined' ) {
+                                    opts[prop] = defaults[prop];
+                                } else {
+                                    opts[op] = options[op];
                                 }
                             }
+                        }
                     } else { /* Options passed as argument array */
-                        optsLen = args.length-1;
-                        for (item = 0; item <= defsLen-1; item++) {
-                            opts[Object.keys(defaults)[item]] = args[item+1];
+                        optsLen = args.length - 1;
+                        for (item = 0; item <= defsLen - 1; item++) {
+                            opts[Object.keys(defaults)[item]] = args[item + 1];
                         }
                     }
                 } else {
@@ -146,8 +146,8 @@
             } /* END setup() */
 
             function validate() {
-                var tVal,
-                    step = 0;
+                var step = 0,
+                        tVal;
 
                 function setAsDefault(i) {
                     opts[i] = defaults[i];
@@ -155,7 +155,7 @@
                 } /* END setAsDefault */
 
                 function setAsOption(i) {
-                    if(arguments[1] !== undefined){
+                    if (arguments[1] !== undefined) {
                         opts[i] = arguments[1];
                     } else {
                         opts[i] = tVal;
@@ -169,10 +169,10 @@
                             case 'parentEl':
                                 if (tVal && typeof tVal === 'object') {
 
-                                    if (window.jQuery && tVal instanceof window.jQuery
-                                        || tVal.nodeType === 1
-                                        || Object.prototype.toString.call(tVal).match(/^\[object\s(.*)\]$/)[1] === 'NodeList'
-                                        || tVal.constructor.name === 'NodeList'
+                                    if (window.jQuery && tVal instanceof window.jQuery ||
+                                        tVal.nodeType === 1 ||
+                                        Object.prototype.toString.call(tVal).match(/^\[object\s(.*)\]$/)[1] === 'NodeList' ||
+                                        tVal.constructor.name === 'NodeList'
                                         )
                                     {
                                         setAsOption(i, tVal[0]);
