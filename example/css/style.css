@@ -1,0 +1,63 @@
+html, body {
+	font-size: 18px;
+	margin: 0;
+	padding: 0;
+}
+
+p, span {
+	margin-left: .5em;
+}
+
+.chardelay {
+	display: inline-block;
+	line-height: 1.5em;
+	font-family: monospace;
+	letter-spacing: .065em;
+	color: lime;
+}
+
+.hldr {
+	background-color: #000;
+	border-radius: 5px;
+	min-width: 280px;
+	min-height: 200px;
+	width: 330px;
+	margin: 2%;
+	padding: 1.2em;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.other {
+	display: inline-block;
+	border: 1px solid #898989;
+	color: red;
+	margin: 1em;
+	border-radius: 3px;
+	animation-duration: 400ms;
+	animation-name: fadein;
+	animation-timing-function: ease-in;
+}
+
+.other img {
+	vertical-align: middle;
+}
+
+@keyframes fadein {
+	from {
+		opacity: 0;
+		line-height: 0;
+	}
+
+	to {
+		opacity: 1;
+		line-height: 1;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.chardelay {
+		font-size: 1em;
+	}
+}

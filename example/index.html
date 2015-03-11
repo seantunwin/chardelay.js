@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Chardelay.js : Delay Appearance of Content Displayed</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<h1>Chardelay.js</h1>
+	<p>Be sure to check the source of this page</p>
+	<div id="container" class="hldr"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+  <script src="../chardelay.min.js"></script>
+  <script>
+
+    $(function() {
+      var str = 'You are a slave. Like everyone else, you were born into bondage, born into a prison that you cannot smell or taste or touch. A prison...for your mind...Unfortunatly, no one can be..._told_ what the Matrix is...you have to see it for yourself.';
+      var str2 = "1234";
+      var imgSrcArr = [
+          'http://i.imgur.com/ZQDT6QT.gif',
+          'http://i.imgur.com/j2CWMG7.gif',
+          'http://i.imgur.com/rfllNHS.gif',
+          'http://i.imgur.com/UWJdcbd.gif'
+      ];
+      var imgArr = [];
+      var imgObjArr = [];
+
+      // other test vars
+      var arr = [1, 'Alvin', 2, 'Simon', 3, 'Theodore'];
+      var o1 = {1: "Alvin", 2: "Simon", 3: "Theodore"}; // This will fail because wrong type: object
+      /* End Variables */
+
+      /* Functions */
+      function preloadImg(w, h, url) {
+
+        var img = new Image(w, h);
+        img.src = url;
+        return img;
+
+      }
+
+      function addImageStrToArray() {
+
+        for (var i = 0; i < imgSrcArr.length; i++) {
+          var iStr = '';
+          iStr = '<img src="' + imgSrcArr[i] + '" width="248" height="180" />';
+          imgArr.push(iStr);
+        }
+
+      }
+
+      function start() {
+
+        // Preload images and add to array
+        for (var x = 0; x < imgSrcArr.length; x++) {
+          var temp = preloadImg(248, 180, imgSrcArr[x]);
+          imgObjArr.push(temp);
+        }
+
+        addImageStrToArray();
+        console.log('imgObjArr: ', imgObjArr);
+
+        /****************************
+         *Different content to pass */
+
+
+      /************************************
+       * Different instances to test with */
+
+      /* Minumum allowed to create an instance - we need to have some content to display */
+      //var myCD = new Chardelay(s2);
+
+      /* Empty strings are ignored */
+      //var myCD = Chardelay(s2,"", "h", 500);
+
+      /* Wrong argument types for options won't fail, defaults will be used instead
+       * Also displaying typical array-based arguments instead of passing an optional parameters object
+       */
+      //var myCD = Chardelay(arr, $(".hldr"), "q", 415,"a", 4, true, "u");
+
+      /* Displaying ability to take an array of images (WARNING: Potentially NSFW - Archer television show gifs)
+       * Also displaying how options can be out of order and still work
+       */
+
+      /* Wait until last image is loaded before displaying */
+      imgObjArr[imgObjArr.length -1].onload = function() {
+        var myCD = Chardelay(imgArr, {
+            "layout": "v",
+            "parentEl": document.querySelector(".hldr"), "multi": true,
+            "delay": 600,
+            "css": "other"
+        });
+      }
+
+      /* Comment out the above and uncomment the following */
+      //var myCD = Chardelay(str,{"parentEl": document.getElementById("container")});
+
+      /*
+       * The robust, easily readable instantiation with all options
+      /*
+      var myCD = Chardelay(str,{
+                      "parentEl": $(".hldr"),
+                      "layout"  : "h",
+                      "delay"   : 125,
+                      "inEl"    : "div",
+                      "css"     : "chardelay",
+                      "overwrite": false,
+                      "multi"   : false
+
+                     });
+
+      //*/
+      } /* END Start */
+      /* End Functions */
+
+      start();
+
+    })(jQuery);
+  </script>
+</body>
+</html>
